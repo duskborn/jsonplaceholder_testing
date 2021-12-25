@@ -24,18 +24,4 @@ public class AbstractJsonPlaceholderTest extends AbstractTestNGSpringContextTest
         }
         return endpoint;
     }
-
-    protected Response getPosts() {
-        return given()
-                .baseUri(getEndpoint())
-                .when()
-                .get("/posts");
-    }
-
-    protected Response getPost(int id) {
-        return given()
-                .baseUri(getEndpoint())
-                .when()
-                .get("/posts/" + id);
-    }
 }
