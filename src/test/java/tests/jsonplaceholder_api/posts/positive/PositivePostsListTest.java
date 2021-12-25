@@ -9,8 +9,6 @@ import models.Post;
 import org.junit.jupiter.api.*;
 import tests.jsonplaceholder_api.posts.AbstractPostsTest;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 @Epic("Тестирование постов JSON Placeholder")
 @Story("Получение списка постов")
 @Severity(value = SeverityLevel.BLOCKER)
@@ -44,8 +42,10 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @Test()
     public void positivePostsListTestStep3() {
         Post[] postList = getPostsList();
-        Assertions.assertEquals(100, postList.length);
-        // TODO logs
+        Integer expectedPostsQuantity = 100;
+        Integer actualPostsQuantity = postList.length;
+        assertEquals(expectedPostsQuantity, actualPostsQuantity,
+                "Ожидаемое количество постов = " + expectedPostsQuantity + " , но было получено " + actualPostsQuantity);
     }
 
     @DisplayName("Проверка содержимого первого поста")
@@ -53,8 +53,11 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @Test()
     public void positivePostsListTestStep4() {
         Post post = getPostModel(1);
-        Assertions.assertTrue(post.equals(testData.firstPost));
-        // TODO logs
+        try {
+            Assertions.assertTrue(post.equals(testData.firstPost));
+        } catch (AssertionError e) {
+            throwError("Ошибка при сравнении постов - модели не идентичны");
+        }
     }
 
     @DisplayName("Проверка содержимого последнего поста")
@@ -62,12 +65,16 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @Test()
     public void positivePostsListTestStep5() {
         Post post = getPostModel(100);
-        Assertions.assertTrue(post.equals(testData.lastPost));
-        // TODO logs
+        try {
+            Assertions.assertTrue(post.equals(testData.lastPost));
+        } catch (AssertionError e) {
+            throwError("Ошибка при сравнении постов - модели не идентичны");
+        }
     }
 
     private static class TestData {
         Post firstPost = new Post();
+
         {
             firstPost.id = 1;
             firstPost.userId = 1;
@@ -78,6 +85,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
         }
 
         Post lastPost = new Post();
+
         {
             lastPost.id = 100;
             lastPost.userId = 10;

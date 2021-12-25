@@ -1,6 +1,7 @@
 package tests;
 
 import io.restassured.response.Response;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.io.IOException;
@@ -25,16 +26,34 @@ public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTest
         return endpoint;
     }
 
-    protected void throwAssertionError(String expected, String actual) {
-        String errorText = "Ошибка - ожидалось " + expected + ", но было " + actual;
+    protected void throwError(String errorText) {
         fail(errorText);
         logger.error(errorText);
     }
 
+    protected void assertEquals(Object expected, Object actual) {
+        assertEquals(expected, actual, "Ошибка - ожидалось " + expected + ", но было получено " + actual);
+    }
+
+    protected void assertThatObjectsAreEqual(Object expected, Object actual) {
+        try {
+        Assertions.assertTrue(expected.equals(actual));
+        } catch (AssertionError e) {
+            throwError("Ошибка при сравнении объектов - ожидалось " + expected + ", но было получено " + actual);
+        }
+    }
+
+    protected void assertEquals(Object expected, Object actual, String errorText) {
+        try {
+            Assertions.assertEquals(expected, actual);
+        } catch (AssertionError e) {
+            throwError(errorText);
+        }
+    }
+
     protected void throwStatusAssertionError(Integer expectedStatus, Integer actualStatus) {
         String errorText = "Ошибка - ожидался статус " + expectedStatus + ", но был получен " + actualStatus;
-        fail(errorText);
-        logger.error(errorText);
+        throwError(errorText);
     }
 
     protected void checkStatusCode(Response response, Integer expectedStatusCode) {
