@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<suite name="positive-posts-tests">
-    <test name="positive-posts-tests">
-        <classes>
-            <class name="tests.jsonplaceholder_api.posts.positive.PositiveApiTest"></class>
-        </classes>
-    </test>
-</suite>

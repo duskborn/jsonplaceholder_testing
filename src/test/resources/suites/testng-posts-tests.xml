@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<suite name="posts-tests">
-    <suite-file path="testng-negative-posts-tests.xml"></suite-file>
-    <suite-file path="testng-positive-posts-tests.xml"></suite-file>
-</suite>

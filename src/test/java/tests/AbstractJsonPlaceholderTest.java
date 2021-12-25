@@ -1,17 +1,15 @@
 package tests;
 
-import io.restassured.response.Response;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.Assert;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static io.restassured.RestAssured.given;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class AbstractJsonPlaceholderTest extends AbstractTestNGSpringContextTests {
+public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTests {
     String endpointsPath = "src/main/resources/endpoints.txt";
 
     protected String getEndpoint() {
@@ -19,7 +17,7 @@ public class AbstractJsonPlaceholderTest extends AbstractTestNGSpringContextTest
         try {
             endpoint = new String(Files.readAllBytes(Paths.get(endpointsPath)), StandardCharsets.US_ASCII);
         } catch (IOException e) {
-            Assert.fail("Ошибка: " + e.getMessage());
+            fail("Ошибка: " + e.getMessage());
             logger.error("Ошибка: " + e);
         }
         return endpoint;
