@@ -15,7 +15,11 @@ public class AbstractPostsTest extends AbstractJsonPlaceholderTest {
                 .get("/posts");
     }
 
-    protected Response getPost(int id) {
+    protected Response getPost(Integer id) {
+        return getPost(id.toString());
+    }
+
+    protected Response getPost(String id) {
         return given()
                 .baseUri(getEndpoint())
                 .when()
@@ -26,7 +30,11 @@ public class AbstractPostsTest extends AbstractJsonPlaceholderTest {
         return getPosts().getBody().as(Post[].class);
     }
 
-    protected Post getPostModel(int id) {
+    protected Post getPostModel(Integer id) {
+        return getPost(id.toString()).getBody().as(Post.class);
+    }
+
+    protected Post getPostModel(String id) {
         return getPost(id).getBody().as(Post.class);
     }
 }

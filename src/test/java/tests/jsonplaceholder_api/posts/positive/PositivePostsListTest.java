@@ -1,15 +1,15 @@
 package tests.jsonplaceholder_api.posts.positive;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import io.restassured.response.Response;
 import models.Post;
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.*;
 import tests.jsonplaceholder_api.posts.AbstractPostsTest;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 @Epic("Тестирование постов JSON Placeholder")
 @Story("Получение списка постов")
@@ -17,7 +17,6 @@ import tests.jsonplaceholder_api.posts.AbstractPostsTest;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class PositivePostsListTest extends AbstractPostsTest {
     private static TestData testData;
-    ObjectMapper mapper = new ObjectMapper();
 
     @BeforeAll
     public static void setup() {
@@ -27,29 +26,23 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @DisplayName("Проверка возврата статуса 200 при получении первого поста")
     @Order(1)
     @Test()
-    public void positiveApiTestStep1() {
-        getPost(1)
-                .then()
-                .assertThat()
-                .statusCode(200);
-        // TODO logs
+    public void positivePostsListTestStep1() {
+        Response response = getPost(1);
+        checkStatusCode(response, 200);
     }
 
     @DisplayName("Проверка возврата статуса 200 при получении списка постов")
     @Order(2)
     @Test()
-    public void positiveApiTestStep2() {
-        getPosts()
-                .then()
-                .assertThat()
-                .statusCode(200);
-        // TODO logs
+    public void positivePostsListTestStep2() {
+        Response response = getPosts();
+        checkStatusCode(response, 200);
     }
 
     @DisplayName("Проверка количества постов")
     @Order(3)
     @Test()
-    public void positiveApiTestStep3() {
+    public void positivePostsListTestStep3() {
         Post[] postList = getPostsList();
         Assertions.assertEquals(100, postList.length);
         // TODO logs
@@ -58,7 +51,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @DisplayName("Проверка содержимого первого поста")
     @Order(4)
     @Test()
-    public void positiveApiTestStep4() throws JsonProcessingException {
+    public void positivePostsListTestStep4() {
         Post post = getPostModel(1);
         Assertions.assertTrue(post.equals(testData.firstPost));
         // TODO logs
@@ -67,7 +60,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @DisplayName("Проверка содержимого последнего поста")
     @Order(5)
     @Test()
-    public void positiveApiTestStep5() {
+    public void positivePostsListTestStep5() {
         Post post = getPostModel(100);
         Assertions.assertTrue(post.equals(testData.lastPost));
         // TODO logs
