@@ -8,11 +8,9 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import tests.jsonplaceholder_api.posts.AbstractPostsTest;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 @Epic("Тестирование постов JSON Placeholder")
 @Story("Получение списка постов. Негативный тест")
-@Severity(value = SeverityLevel.BLOCKER)
+@Severity(value = SeverityLevel.CRITICAL)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class NegativePostsListTest extends AbstractPostsTest {
 

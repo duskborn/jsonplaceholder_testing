@@ -5,7 +5,7 @@ import model.BaseModel;
 
 import java.util.Objects;
 
-public class Post extends BaseModel {
+public class PostModel extends BaseModel {
     @JsonProperty("id")
     public Integer id;
 
@@ -21,8 +21,8 @@ public class Post extends BaseModel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Post)) return false;
-        Post post = (Post) o;
+        if (!(o instanceof PostModel)) return false;
+        PostModel post = (PostModel) o;
         return Objects.equals(id, post.id) && Objects.equals(userId, post.userId) && title.equals(post.title) && body.equals(post.body);
     }
 

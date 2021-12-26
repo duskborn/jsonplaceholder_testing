@@ -1,6 +1,11 @@
 package tests;
 
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
+import model.BaseModel;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -12,16 +17,21 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTests {
-    String endpointsPath = "src/main/resources/endpoints.txt";
+    private String endpointsPath = "src/main/resources/endpoints.txt";
+    protected RequestSpecification requestSpecification = new RequestSpecBuilder()
+            .setBaseUri(getEndpoint())
+            .addHeader("Content-Type", "application/json")
+            .build();
+    protected ResponseSpecification responseSpecification = new ResponseSpecBuilder()
+            .expectHeader("Content-Type", "application/json; charset=utf-8")
+            .build();
 
     protected String getEndpoint() {
         String endpoint = null;
         try {
             endpoint = new String(Files.readAllBytes(Paths.get(endpointsPath)), StandardCharsets.US_ASCII);
         } catch (IOException e) {
-            String errorText = "Ошибка при получении endpoint: " + e.getMessage();
-            fail(errorText);
-            logger.error(errorText);
+            throwError("Ошибка при получении endpoint: " + e.getMessage());
         }
         return endpoint;
     }
@@ -37,7 +47,7 @@ public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTest
 
     protected void assertThatObjectsAreEqual(Object expected, Object actual) {
         try {
-        Assertions.assertTrue(expected.equals(actual));
+            Assertions.assertTrue(expected.equals(actual));
         } catch (AssertionError e) {
             throwError("Ошибка при сравнении объектов - ожидалось " + expected + ", но было получено " + actual);
         }
@@ -64,6 +74,17 @@ public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTest
                     .statusCode(expectedStatusCode);
         } catch (AssertionError e) {
             throwStatusAssertionError(expectedStatusCode, response.getStatusCode());
+        }
+    }
+
+    protected void compareTwoModels(BaseModel expectedModel, BaseModel actualModel) {
+        try {
+            Assertions.assertTrue(actualModel.equals(expectedModel));
+        } catch (AssertionError e) {
+            throwError("Ошибка при сравнении моделей класса " + actualModel.getClass().getSimpleName()
+                    + " - модели не идентичны: "
+                    + "\nожидалось " + expectedModel.toString()
+                    + "\nно было " + actualModel.toString());
         }
     }
 }

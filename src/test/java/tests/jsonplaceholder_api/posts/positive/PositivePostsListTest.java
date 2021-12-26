@@ -5,7 +5,7 @@ import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
 import io.restassured.response.Response;
-import models.Post;
+import models.PostModel;
 import org.junit.jupiter.api.*;
 import tests.jsonplaceholder_api.posts.AbstractPostsTest;
 
@@ -41,7 +41,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @Order(3)
     @Test()
     public void positivePostsListTestStep3() {
-        Post[] postList = getPostsList();
+        PostModel[] postList = getPostsList();
         Integer expectedPostsQuantity = 100;
         Integer actualPostsQuantity = postList.length;
         assertEquals(expectedPostsQuantity, actualPostsQuantity,
@@ -52,28 +52,20 @@ public class PositivePostsListTest extends AbstractPostsTest {
     @Order(4)
     @Test()
     public void positivePostsListTestStep4() {
-        Post post = getPostModel(1);
-        try {
-            Assertions.assertTrue(post.equals(testData.firstPost));
-        } catch (AssertionError e) {
-            throwError("Ошибка при сравнении постов - модели не идентичны");
-        }
+        PostModel post = getPostModel(1);
+        compareTwoModels(testData.firstPost, post);
     }
 
     @DisplayName("Проверка содержимого последнего поста")
     @Order(5)
     @Test()
     public void positivePostsListTestStep5() {
-        Post post = getPostModel(100);
-        try {
-            Assertions.assertTrue(post.equals(testData.lastPost));
-        } catch (AssertionError e) {
-            throwError("Ошибка при сравнении постов - модели не идентичны");
-        }
+        PostModel post = getPostModel(100);
+        compareTwoModels(testData.lastPost, post);
     }
 
     private static class TestData {
-        Post firstPost = new Post();
+        PostModel firstPost = new PostModel();
 
         {
             firstPost.id = 1;
@@ -84,7 +76,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
                     "\nnostrum rerum est autem sunt rem eveniet architecto";
         }
 
-        Post lastPost = new Post();
+        PostModel lastPost = new PostModel();
 
         {
             lastPost.id = 100;
