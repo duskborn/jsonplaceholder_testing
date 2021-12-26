@@ -1,5 +1,9 @@
 # jsonplaceholder_testing
 
-Testing the site http://jsonplaceholder.typicode.com/
+Стек: java, junit5, allure, maven, jackson
 
-[//]: # (TODO)
+Путь до папки с тестами: src/test/java/tests
+
+Для генерациии аллюр отчета использовать команду:
+
+allure serve *{путь до папки с проектом}*\json_placeholder_testing\allure-results

@@ -9,10 +9,8 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import models.PostModel;
 import org.junit.jupiter.api.*;
 import tests.jsonplaceholder_api.posts.AbstractPostsTest;
-import tests.jsonplaceholder_api.posts.positive.PositiveAddNewPostTest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -48,7 +46,7 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 1 - пустое тело запроса. Проверка статуса ответа")
     @Order(1)
     @Test()
-    public void positiveAddNewPostTestStep1_1() {
+    public void negativeAddNewPostTestStep1_1() {
         response = postPost("");
         checkStatusCode(response, 400);
     }
@@ -56,14 +54,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 1 - пустое тело запроса. Проверка тела ответа")
     @Order(2)
     @Test()
-    public void positiveAddNewPostTestStep1_2() {
+    public void negativeAddNewPostTestStep1_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 2  - неверный параметр в теле запроса. Проверка статуса ответа")
     @Order(3)
     @Test()
-    public void positiveAddNewPostTestStep2_1() {
+    public void negativeAddNewPostTestStep2_1() {
         response = postPost("{\"not_rly_id\":null}");
         checkStatusCode(response, 400);
     }
@@ -71,14 +69,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 2  - неверный параметр в теле запроса. Проверка тела ответа")
     @Order(4)
     @Test()
-    public void positiveAddNewPostTestStep2_2() {
+    public void negativeAddNewPostTestStep2_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 3  - неверный тип значения параметра в теле запроса. Проверка статуса ответа")
     @Order(5)
     @Test()
-    public void positiveAddNewPostTestStep3_1() {
+    public void negativeAddNewPostTestStep3_1() {
         response = postPost("{\"userId\":\"userId\"}");
         checkStatusCode(response, 400);
     }
@@ -86,14 +84,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 3  - неверный тип значения параметра в теле запроса. Проверка тела ответа")
     @Order(6)
     @Test()
-    public void positiveAddNewPostTestStep3_2() {
+    public void negativeAddNewPostTestStep3_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 4  - не хватает параметра в теле запроса. Проверка статуса ответа")
     @Order(7)
     @Test()
-    public void positiveAddNewPostTestStep4_1() {
+    public void negativeAddNewPostTestStep4_1() {
         response = postPost("{\"userId\": 1, \"title\": \"title\"}");
         checkStatusCode(response, 400);
     }
@@ -101,14 +99,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 4  - не хватает параметра в теле запроса. Проверка тела ответа")
     @Order(8)
     @Test()
-    public void positiveAddNewPostTestStep4_2() {
+    public void negativeAddNewPostTestStep4_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 5  - неверное значение параметра в теле запроса. Проверка статуса ответа")
     @Order(9)
     @Test()
-    public void positiveAddNewPostTestStep5_1() {
+    public void negativeAddNewPostTestStep5_1() {
         response = postPost("{\"userId\": 999, \"title\": \"title\", \"body\": \"body\"}");
         checkStatusCode(response, 400);
     }
@@ -116,14 +114,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 5  - неверное значение параметра в теле запроса. Проверка тела ответа")
     @Order(10)
     @Test()
-    public void positiveAddNewPostTestStep5_2() {
+    public void negativeAddNewPostTestStep5_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 6  - неверный заголовок. Проверка статуса ответа")
     @Order(11)
     @Test()
-    public void positiveAddNewPostTestStep6_1() {
+    public void negativeAddNewPostTestStep6_1() {
         RequestSpecification requestSpecification = new RequestSpecBuilder()
                 .setBaseUri(getEndpoint())
                 .addHeader("Content-Type", "application/json")
@@ -136,14 +134,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 6  - неверный заголовок. Проверка тела ответа")
     @Order(12)
     @Test()
-    public void positiveAddNewPostTestStep6_2() {
+    public void negativeAddNewPostTestStep6_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 7 - переполнение заголовка. Проверка статуса ответа")
     @Order(13)
     @Test()
-    public void positiveAddNewPostTestStep7_1() {
+    public void negativeAddNewPostTestStep7_1() {
         ResponseSpecification negativeResponseSpecification = new ResponseSpecBuilder()
                 .expectHeader("Content-Type", "text/html")
                 .build();
@@ -160,14 +158,14 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 7 - переполнение заголовка. Проверка тела ответа")
     @Order(14)
     @Test()
-    public void positiveAddNewPostTestStep7_2() {
+    public void negativeAddNewPostTestStep7_2() {
         checkRecordNotCreated();
     }
 
     @DisplayName("Негативное создание поста с невалидным содержанием 8 - переполнение тела запроса. Проверка статуса ответа")
     @Order(15)
     @Test()
-    public void positiveAddNewPostTestStep8_1() {
+    public void negativeAddNewPostTestStep8_1() {
         ResponseSpecification negativeResponseSpecification = new ResponseSpecBuilder()
                 .expectHeader("Content-Type", "text/html; charset=utf-8")
                 .build();
@@ -182,7 +180,7 @@ public class NegativeAddNewPostTest extends AbstractPostsTest {
     @DisplayName("Негативное создание поста с невалидным содержанием 8 - переполнение тела запроса. Проверка тела ответа")
     @Order(16)
     @Test()
-    public void positiveAddNewPostTestStep8_2() {
+    public void negativeAddNewPostTestStep8_2() {
         checkRecordNotCreated();
     }
 
