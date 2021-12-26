@@ -5,6 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
+/**
+ * Базовая модель, от которой наследуются все модели
+ */
 public class BaseModel implements Cloneable {
     public Map<String, Object> toMap() {
         Map<String, Object> map = new ObjectMapper().convertValue(this, Map.class);

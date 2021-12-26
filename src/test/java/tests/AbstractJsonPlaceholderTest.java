@@ -16,6 +16,10 @@ import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Сюда вынесены общие методы для всех тестов.
+ * В теории, в дальнейшем надо раскидать методы по хэлперами, утилитам и прочим вспомогающим классам.
+ */
 public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTests {
     private String endpointsPath = "src/main/resources/endpoints.txt";
     protected RequestSpecification requestSpecification = new RequestSpecBuilder()
@@ -24,6 +28,10 @@ public class AbstractJsonPlaceholderTest extends AbstractJUnit4SpringContextTest
             .build();
     protected ResponseSpecification responseSpecification = new ResponseSpecBuilder()
             .expectHeader("Content-Type", "application/json; charset=utf-8")
+            .expectHeader("access-control-allow-credentials", "true")
+            .expectHeader("expires", "-1")
+            .expectHeader("pragma", "no-cache")
+            .expectHeader("x-ratelimit-limit", "1000")
             .build();
 
     protected String getEndpoint() {

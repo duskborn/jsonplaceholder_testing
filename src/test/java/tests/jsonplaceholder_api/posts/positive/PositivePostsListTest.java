@@ -16,10 +16,12 @@ import tests.jsonplaceholder_api.posts.AbstractPostsTest;
 public class PositivePostsListTest extends AbstractPostsTest {
     private static TestData testData;
 
+
     @BeforeAll
     public static void setup() {
         testData = new TestData();
     }
+
 
     @DisplayName("Проверка возврата статуса 200 при получении первого поста")
     @Order(1)
@@ -63,6 +65,7 @@ public class PositivePostsListTest extends AbstractPostsTest {
         PostModel post = getPostModel(100);
         compareTwoModels(testData.lastPost, post);
     }
+
 
     private static class TestData {
         PostModel firstPost = new PostModel();

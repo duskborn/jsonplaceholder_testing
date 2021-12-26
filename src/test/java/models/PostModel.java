@@ -5,6 +5,9 @@ import model.BaseModel;
 
 import java.util.Objects;
 
+/**
+ * Модель постов
+ */
 public class PostModel extends BaseModel {
     @JsonProperty("id")
     public Integer id;

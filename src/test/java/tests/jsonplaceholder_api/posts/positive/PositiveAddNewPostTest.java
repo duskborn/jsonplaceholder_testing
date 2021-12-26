@@ -18,12 +18,14 @@ public class PositiveAddNewPostTest extends AbstractPostsTest {
     private static Response response;
     private static PostModel outputNewPost = null;
 
+
     @BeforeAll
     public static void setup() {
         testData = new TestData();
     }
 
-    @DisplayName("Позитивное создание обычного поста")
+
+    @DisplayName("Позитивное создание обычного поста и проверка ответа")
     @Order(1)
     @Test()
     public void positiveAddNewPostTestStep1() {
@@ -39,6 +41,7 @@ public class PositiveAddNewPostTest extends AbstractPostsTest {
     public void positiveAddNewPostTestStep2() {
         checkStatusCode(response, 201);
     }
+
 
     private static class TestData {
         PostModel newPost = new PostModel();

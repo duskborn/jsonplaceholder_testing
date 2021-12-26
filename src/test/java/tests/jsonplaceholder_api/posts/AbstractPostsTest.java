@@ -1,6 +1,8 @@
 package tests.jsonplaceholder_api.posts;
 
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import models.PostModel;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,6 +10,9 @@ import tests.AbstractJsonPlaceholderTest;
 
 import static io.restassured.RestAssured.given;
 
+/**
+ * Сюда вынесены общие методы для работы с постами
+ */
 public class AbstractPostsTest extends AbstractJsonPlaceholderTest {
 
     protected Response getPosts() {
@@ -64,7 +69,7 @@ public class AbstractPostsTest extends AbstractJsonPlaceholderTest {
         return jsonobject.toString();
     }
 
-    protected Response postPost(String stringPostBody) {
+    protected Response postPost(String stringPostBody, RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         Response response = given()
                 .spec(requestSpecification)
                 .body(stringPostBody)
@@ -76,6 +81,10 @@ public class AbstractPostsTest extends AbstractJsonPlaceholderTest {
                 .assertThat()
                 .spec(responseSpecification);
         return response;
+    }
+
+    protected Response postPost(String stringPostBody) {
+        return postPost(stringPostBody, requestSpecification, responseSpecification);
     }
 
     protected Response postPost(Integer userId, String title, String body) {
